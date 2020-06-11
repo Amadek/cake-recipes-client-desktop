@@ -1,0 +1,7 @@
+.recipe-name {
+  display: flex;
+}
+
+span {
+  margin: 6px 0 5px 5px;
+}
