@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavBar } from './NavBar';
 import { SearchTab } from './SearchTab';
-import { ReadWithRouter } from './Read';
+import { ReadRecipeTabWithRouter } from './ReadRecipeTab';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 export class App extends React.Component {
@@ -11,7 +11,7 @@ export class App extends React.Component {
         <NavBar />
         <Switch>
           <Route path='/recipe/:recipeId'>
-            <ReadWithRouter />
+            <ReadRecipeTabWithRouter />
           </Route>
           <Route path='/'>
             <SearchTab />

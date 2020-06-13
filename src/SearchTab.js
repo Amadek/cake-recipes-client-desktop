@@ -1,6 +1,6 @@
 import React from 'react';
 import { SearchBar } from './SearchBar';
-import { RecipeNamesList } from './RecipeNamesList';
+import { RecipeEntries } from './RecipeEntries';
 
 export class SearchTab extends React.Component {
   constructor (props) {
@@ -21,10 +21,10 @@ export class SearchTab extends React.Component {
 
   render () {
     return (
-      <fragment>
+      <main className='container mt-4'>
         <SearchBar onSearchStarted={this.handleSearchStarted} />
-        <RecipeNamesList recipes={this.state.recipes} />
-      </fragment>
+        <RecipeEntries recipes={this.state.recipes} />
+      </main>
     );
   }
 }

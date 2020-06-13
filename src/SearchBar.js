@@ -1,12 +1,10 @@
 import React from 'react';
-import './SearchBar.css';
 
 export class SearchBar extends React.Component {
   constructor (props) {
     super(props);
-    this.state = { recipeName: 'recipe name...' };
+    this.state = { recipeName: '' };
     this.handleChange = this.handleChange.bind(this);
-    this.handleClick = this.handleClick.bind(this);
     this.timeoutId = -1;
   }
 
@@ -23,15 +21,15 @@ export class SearchBar extends React.Component {
     }, 500);
   }
 
-  handleClick () {
-    this.setState({ recipeName: '' });
+  componentWillUnmount () {
     clearTimeout(this.timeoutId);
   }
 
   render () {
     return (
-      <form className='search-bar'>
-        <input value={this.state.recipeName} onChange={this.handleChange} onClick={this.handleClick} />
+      <form>
+        <label htmlFor='search'>Search a recipe by name:</label>
+        <input id='search' className='form-control' value={this.state.recipeName} onChange={this.handleChange} />
       </form>
     );
   }
