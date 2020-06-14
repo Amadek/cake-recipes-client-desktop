@@ -1,20 +1,17 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
+import { AppContext } from './AppContext';
 
 class ReadRecipeTab extends React.Component {
   constructor (props) {
     super(props);
-    console.log(JSON.stringify(props.match));
     this.state = { recipe: null };
   }
 
   componentDidMount () {
     setTimeout(() => {
-      const recipe = {
-        id: this.props.match.params.recipeId,
-        name: 'Szarlotka',
-        body: 'Najlepsze ciasto jabłkowe na świecie!'
-      };
+      const recipeId = parseInt(this.props.match.params.recipeId);
+      const recipe = this.context.cakeRecipesApiClient.getRecipe(recipeId);
       this.setState({ recipe });
     }, 1000);
   }
@@ -31,10 +28,12 @@ class ReadRecipeTab extends React.Component {
     return (
       <main className='container mt-3'>
         <h1>{this.state.recipe.name}</h1>
-        <p>{this.state.recipe.body}</p>
+        <p>{this.state.recipe.content}</p>
       </main>
     );
   }
 }
+
+ReadRecipeTab.contextType = AppContext;
 
 export const ReadRecipeTabWithRouter = withRouter(ReadRecipeTab);

@@ -1,8 +1,10 @@
 import React from 'react';
 import { SearchBar } from './SearchBar';
 import { RecipeEntries } from './RecipeEntries';
+import { AppContext } from './AppContext';
+import { withRouter } from 'react-router-dom';
 
-export class SearchTab extends React.Component {
+class SearchTab extends React.Component {
   constructor (props) {
     super(props);
     this.state = { recipes: [] };
@@ -10,12 +12,7 @@ export class SearchTab extends React.Component {
   }
 
   handleSearchStarted (recipeName) {
-    const recipes = [
-      { id: 1, name: recipeName, content: 'Bardzo smaczny murzynek.' },
-      { id: 2, name: 'Sernik', content: 'Coś czego mój tata się przejadł.' },
-      { id: 3, name: 'Szarlotka', content: 'Najlepsze ciasto z jabłek!' }
-    ];
-
+    const recipes = this.context.cakeRecipesApiClient.getRecipesByName(recipeName);
     this.setState({ recipes });
   }
 
@@ -28,3 +25,6 @@ export class SearchTab extends React.Component {
     );
   }
 }
+
+SearchTab.contextType = AppContext;
+export const SearchTabWithRouter = withRouter(SearchTab);
