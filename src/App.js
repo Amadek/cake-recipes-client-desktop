@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import { NavBar } from './NavBar';
 import { SearchTabWithRouter } from './SearchTab';
 import { ReadRecipeTabWithRouter } from './ReadRecipeTab';
@@ -24,15 +24,27 @@ export class App extends React.Component {
             <Route path='/login'>
               <LoginWithRouter />
             </Route>
-            <Route path='/recipe/:recipeId'>
+            <PrivateRoute path='/recipe/:recipeId'>
               <ReadRecipeTabWithRouter />
-            </Route>
-            <Route path='/'>
+            </PrivateRoute>
+            <PrivateRoute path='/'>
               <SearchTabWithRouter />
-            </Route>
+            </PrivateRoute>
           </Switch>
         </Router>
       </AppContext.Provider>
     );
+  }
+}
+
+function PrivateRoute ({ children, ...rest }) {
+  return (
+    <Route {...rest} render={handleRender} />
+  );
+
+  function handleRender ({ location }) {
+    return !window.localStorage.getItem('jwt')
+      ? <Redirect to={{ pathname: '/login', state: { from: location } }} />
+      : children;
   }
 }

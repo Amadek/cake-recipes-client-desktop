@@ -6,19 +6,23 @@ class Login extends React.Component {
   render () {
     const jwtFromStorage = window.localStorage.getItem('jwt');
     const jwtFromQuery = new URLSearchParams(this.props.location.search).get('jwt');
+    const { from } = this.props.location.state || { from: { pathname: '/' } };
 
     // If we have JWT in storage, it's all we need.
     if (jwtFromStorage) {
-      return <Redirect to='/' />;
+      this.props.history.replace(from);
+      return (null);
     }
 
     // If we get JWT from query, we have to save it to storage.
     if (jwtFromQuery) {
       window.localStorage.setItem('jwt', jwtFromQuery);
-      return <Redirect to='/' />;
+      this.props.history.replace(from);
+      return (null);
     }
 
-    // If we haven't JWT, we have to call API and after redirect we get it.
+    // If we haven't JWT, we have to call API and after redirect we get it in query.
+    // TODO should be client responsibility.
     const redirectUrl = Axios.getUri({
       method: 'GET',
       url: 'http://localhost:4000/auth',
