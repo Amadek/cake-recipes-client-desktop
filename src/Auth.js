@@ -1,8 +1,8 @@
 import React from 'react';
-import { Redirect, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import Axios from 'axios';
 
-class Login extends React.Component {
+class Auth extends React.Component {
   render () {
     const jwtFromStorage = window.localStorage.getItem('jwt');
     const jwtFromQuery = new URLSearchParams(this.props.location.search).get('jwt');
@@ -42,4 +42,4 @@ class Login extends React.Component {
   }
 }
 
-export const LoginWithRouter = withRouter(Login);
+export const AuthWithRouter = withRouter(Auth);

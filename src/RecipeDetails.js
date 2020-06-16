@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { AppContext } from './AppContext';
 
-class ReadRecipeTab extends React.Component {
+class RecipeDetails extends React.Component {
   constructor (props) {
     super(props);
     this.state = { recipe: null };
@@ -34,6 +34,6 @@ class ReadRecipeTab extends React.Component {
   }
 }
 
-ReadRecipeTab.contextType = AppContext;
+RecipeDetails.contextType = AppContext;
 
-export const ReadRecipeTabWithRouter = withRouter(ReadRecipeTab);
+export const RecipeDetailsWithRouter = withRouter(RecipeDetails);

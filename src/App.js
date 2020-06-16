@@ -2,10 +2,11 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import { NavBar } from './NavBar';
 import { SearchTabWithRouter } from './SearchTab';
-import { ReadRecipeTabWithRouter } from './ReadRecipeTab';
+import { RecipeDetailsWithRouter } from './RecipeDetails';
 import { AppContext } from './AppContext';
 import { CakeRecipesApiClient } from './CakeRecipesApiClient';
-import { LoginWithRouter } from './Login';
+import { AuthWithRouter } from './Auth';
+import { EditRecipe } from './EditRecipe';
 
 export class App extends React.Component {
   constructor (props) {
@@ -21,11 +22,14 @@ export class App extends React.Component {
         <Router>
           <NavBar />
           <Switch>
-            <Route path='/login'>
-              <LoginWithRouter />
+            <Route path='/auth'>
+              <AuthWithRouter />
             </Route>
+            <PrivateRoute path='/recipe/:recipeId/edit'>
+              <EditRecipe />
+            </PrivateRoute>
             <PrivateRoute path='/recipe/:recipeId'>
-              <ReadRecipeTabWithRouter />
+              <RecipeDetailsWithRouter />
             </PrivateRoute>
             <PrivateRoute path='/'>
               <SearchTabWithRouter />
@@ -38,13 +42,11 @@ export class App extends React.Component {
 }
 
 function PrivateRoute ({ children, ...rest }) {
-  return (
-    <Route {...rest} render={handleRender} />
-  );
+  return <Route {...rest} render={handleRender} />;
 
   function handleRender ({ location }) {
     return !window.localStorage.getItem('jwt')
-      ? <Redirect to={{ pathname: '/login', state: { from: location } }} />
+      ? <Redirect to={{ pathname: '/auth', state: { from: location } }} />
       : children;
   }
 }
