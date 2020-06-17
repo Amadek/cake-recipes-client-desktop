@@ -1,6 +1,7 @@
 import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import { AppContext } from './AppContext';
+import showdown from 'showdown';
 
 class RecipeDetails extends React.Component {
   constructor (props) {
@@ -12,6 +13,7 @@ class RecipeDetails extends React.Component {
     setTimeout(() => {
       const recipeId = parseInt(this.props.match.params.recipeId);
       const recipe = this.context.cakeRecipesApiClient.getRecipe(recipeId);
+      recipe.content = new showdown.Converter().makeHtml(recipe.content);
       this.setState({ recipe });
     }, 1000);
   }
@@ -28,7 +30,7 @@ class RecipeDetails extends React.Component {
     return (
       <main className='container mt-3'>
         <h1>{this.state.recipe.name}</h1>
-        <p>{this.state.recipe.content}</p>
+        <article dangerouslySetInnerHTML={{ __html: this.state.recipe.content }} />
         <Link to={this.props.match.url + '/edit'} className='btn btn-primary'>Edit</Link>
       </main>
     );
