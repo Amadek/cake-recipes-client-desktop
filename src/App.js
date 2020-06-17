@@ -6,7 +6,7 @@ import { RecipeDetailsWithRouter } from './RecipeDetails';
 import { AppContext } from './AppContext';
 import { CakeRecipesApiClient } from './CakeRecipesApiClient';
 import { AuthWithRouter } from './Auth';
-import { EditRecipe } from './EditRecipe';
+import { EditRecipeWithRouter } from './EditRecipe';
 
 export class App extends React.Component {
   constructor (props) {
@@ -26,7 +26,7 @@ export class App extends React.Component {
               <AuthWithRouter />
             </Route>
             <PrivateRoute path='/recipe/:recipeId/edit'>
-              <EditRecipe />
+              <EditRecipeWithRouter />
             </PrivateRoute>
             <PrivateRoute path='/recipe/:recipeId'>
               <RecipeDetailsWithRouter />

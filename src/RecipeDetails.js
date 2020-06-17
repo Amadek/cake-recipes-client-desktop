@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import { AppContext } from './AppContext';
 
 class RecipeDetails extends React.Component {
@@ -29,6 +29,7 @@ class RecipeDetails extends React.Component {
       <main className='container mt-3'>
         <h1>{this.state.recipe.name}</h1>
         <p>{this.state.recipe.content}</p>
+        <Link to={this.props.match.url + '/edit'} className='btn btn-primary'>Edit</Link>
       </main>
     );
   }
