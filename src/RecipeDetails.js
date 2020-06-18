@@ -10,12 +10,12 @@ class RecipeDetails extends React.Component {
   }
 
   componentDidMount () {
-    setTimeout(() => {
-      const recipeId = parseInt(this.props.match.params.recipeId);
-      const recipe = this.context.cakeRecipesApiClient.getRecipe(recipeId);
-      recipe.content = new showdown.Converter().makeHtml(recipe.content);
-      this.setState({ recipe });
-    }, 1000);
+    const recipeId = this.props.match.params.recipeId;
+    this.context.cakeRecipesApiClient.getRecipe(recipeId)
+      .then(recipe => {
+        recipe.content = new showdown.Converter().makeHtml(recipe.description);
+        this.setState({ recipe });
+      });
   }
 
   render () {
