@@ -92,7 +92,7 @@ class EditRecipe extends React.Component {
           <label htmlFor='recipe-name'>Recipe name:</label>
           <input type='text' className='form-control' value={this.state.recipeName} onChange={this.handleRecipeNameChange} />
           <label htmlFor='recipe-content' className='mt-3'>Recipe content:</label>
-          <textarea id='recipe-content' className='form-control' rows='20' value={this.state.recipeContent} onChange={this.handleRecipeContentChange} />
+          <textarea id='recipe-content' className='form-control' rows='10' value={this.state.recipeContent} onChange={this.handleRecipeContentChange} />
           <button type='button' className='btn btn-primary mt-3' disabled={this.state.saveButtonDisabled} onClick={this.handleSave}>{this.state.saveButtonContent}</button>
           <button type='button' className='btn btn-outline-danger mt-3 ml-3' data-toggle='modal' data-target='#sureToDeleteModal'>Delete</button>
         </form>
