@@ -46,6 +46,7 @@ class AddRecipe extends React.Component {
 
     return (
       <main className='container mt-3'>
+        <h1>Add new recipe</h1>
         <form>
           <label htmlFor='recipe-name'>Recipe name:</label>
           <input type='text' className='form-control' value={this.state.recipeName} onChange={this.handleRecipeNameChange} />

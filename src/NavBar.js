@@ -11,6 +11,9 @@ export class NavBar extends React.Component {
             <li className='nav-item active'>
               <Link className='nav-link' to='/'>Search</Link>
             </li>
+            <li className='nav-item active'>
+              <Link className='nav-link' to='/recipe/add'>New</Link>
+            </li>
           </ul>
         </div>
       </nav>

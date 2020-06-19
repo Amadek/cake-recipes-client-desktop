@@ -1,22 +1,16 @@
 import Axios from 'axios';
 
 export class CakeRecipesApiClient {
-  constructor () {
-    this.recipes = [
-      { id: 1, name: 'Murzynek', content: 'Bardzo smaczne ciemne ciasto.' },
-      { id: 2, name: 'Sernik', content: '***Coś czego mój tata się przejadł.***' },
-      { id: 3, name: 'Szarlotka', content: 'Najlepsze ciasto z jabłek!' }
-    ];
-  }
-
   getRecipesByName (recipeName) {
-    const recipes = this.recipes.filter(recipe => recipe.name.indexOf(recipeName) !== -1);
-    return recipes;
+    return Promise.resolve()
+      .then(() => Axios.get(`http://localhost:4000/recipe/name/${recipeName}`))
+      .then(res => res.data);
   }
 
   getRecipe (recipeId) {
-    const recipe = this.recipes.find(recipe => recipe.id === recipeId);
-    return recipe;
+    return Promise.resolve()
+      .then(() => Axios.get(`http://localhost:4000/recipe/id/${recipeId}`))
+      .then(res => res.data);
   }
 
   addRecipe (recipe) {
@@ -30,5 +24,15 @@ export class CakeRecipesApiClient {
         headers: { Authorization: 'Bearer ' + window.localStorage.getItem('jwt') }
       }))
       .then(response => response.data);
+  }
+
+  updateRecipe (recipe) {
+    return Promise.resolve()
+      .then(() => Axios.patch('http://localhost:4000/recipe', recipe, { headers: { Authorization: 'Bearer ' + window.localStorage.getItem('jwt') } }));
+  }
+
+  deleteRecipe (recipeId) {
+    return Promise.resolve()
+      .then(() => Axios.put(`http://localhost:4000/recipe/id/${recipeId}`, {}, { headers: { Authorization: 'Bearer ' + window.localStorage.getItem('jwt') } }));
   }
 }
